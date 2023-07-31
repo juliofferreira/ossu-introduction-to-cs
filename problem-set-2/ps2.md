@@ -4,7 +4,7 @@ This problem set will introduce you to the topic of creating functions in Python
 
 ## Problem 1: Basic Hangman
 
-You will implement a variation of the classic word game Hangman. If you are unfamiliar with the rules of the game, read http://en.wikipedia.org/wiki/Hangman_(game)​. Don’t be intimidated by this problem ­ it's actually easier than it looks! We will 'scaffold' this problem, guiding you through the creation of helper functions before you implement the actual game.
+You will implement a variation of the classic word game Hangman. If you are unfamiliar with the rules of the game, read http://en.wikipedia.org/wiki/Hangman_(game)​. Don’t be intimidated by this problem it's actually easier than it looks! We will 'scaffold' this problem, guiding you through the creation of helper functions before you implement the actual game.
 
 ### A) Getting Started
 Download the files “hangman.py” and “words.txt”, and ​save them both in the same directory​. Run the file hangman.py before writing any code to ensure your files are saved correctly. The code we have given you loads in words from a file. You should see the following output in your shell:
@@ -38,7 +38,7 @@ The file hangman.py has a number of already implemented functions you can use wh
 
 ### 1A) Determine whether the word has been guessed
 
-First, implement the function ​is_word_guessed​ that takes in two parameters ­ a string, ​secret_word​, and a list of letters (strings), ​letters_guessed.​ This function returns a boolean ­ ​True​ if ​secret_word​ has been guessed (i.e., all the letters of secret_word​ are in ​letters_guessed​), and ​False​ otherwise. This function will be useful in helping you decide when the hangman game has been successfully completed, and becomes an end­test for any iterative loop that checks letters against the secret word.
+First, implement the function ​is_word_guessed​ that takes in two parameters ­a string, ​secret_word​, and a list of letters (strings), ​letters_guessed.​ This function returns a boolean ­​True​ if ​secret_word​ has been guessed (i.e., all the letters of secret_word​ are in ​letters_guessed​), and ​False​ otherwise. This function will be useful in helping you decide when the hangman game has been successfully completed, and becomes an end­test for any iterative loop that checks letters against the secret word.
 
 For this function, you may assume that all the letters in ​secret_word​ and letters_guessed​ are lowercase.
 
@@ -53,9 +53,9 @@ False
 
 ### 1B) Getting the user’s guess
 
-Next, implement the function ​get_guessed_word​ that takes in two parameters ­ a string, ​secret_word​, and a list of letters, ​letters_guessed​. This function returns a string that is comprised of letters and underscores, based on what letters in letters_guessed​ are in ​secret_word​. This shouldn't be too different from is_word_guessed​!
+Next, implement the function ​get_guessed_word​ that takes in two parameters­ a string, ​secret_word​, and a list of letters, ​letters_guessed​. This function returns a string that is comprised of letters and underscores, based on what letters in letters_guessed​ are in ​secret_word​. This shouldn't be too different from is_word_guessed​!
 
-We are going to use an underscore followed by a space (_ ) to represent unknown letters. We could have chosen other symbols, but the combination of underscore and space is visible and easily discerned. Note that the space is super important, as otherwise it hard to distinguish whether ____ is four elements long or three. This is called ​usability ­ it's very important, when programming, to consider the usability of your program. If users find your program difficult to understand or operate, they won't use it! We encourage you to think about usability when designing your program.
+We are going to use an underscore followed by a space (_ ) to represent unknown letters. We could have chosen other symbols, but the combination of underscore and space is visible and easily discerned. Note that the space is super important, as otherwise it hard to distinguish whether ____ is four elements long or three. This is called ​usability­ it's very important, when programming, to consider the usability of your program. If users find your program difficult to understand or operate, they won't use it! We encourage you to think about usability when designing your program.
 
 Hint:​ In designing your function, think about what information you want to return when done, whether you need a place to store that information as you loop over a data structure, and how you want to add information to your accumulated result.
 
@@ -70,7 +70,7 @@ Example Usage:
 
 ### 1C) Getting all available letters
 
-Next, implement the function ​get_available_letters​ that takes in one parameter ­ a list of letters, ​letters_guessed​. This function returns a string that is comprised of lowercase English letters ­ all lowercase English letters that are not in letters_guessed​.
+Next, implement the function ​get_available_letters​ that takes in one parameter,­ a list of letters, ​letters_guessed​. This function returns a string that is comprised of lowercase English letters­ all lowercase English letters that are not in letters_guessed​.
 
 This function should return the letters in alphabetical order. For this function, you may assume that all the letters in ​letters_guessed​ are lowercase.
 
@@ -92,7 +92,7 @@ abcdfghjlmnoqtuvwxyz
 
 ## Problem 3: Hangman Part 2 - The Game
 
-Now that you have built some useful functions, you can turn to implementing the function ​hangman​, which takes one parameter ­ the ​secret_word​ the user is to guess. Initially, you can (and should!) manually set this secret word when you run this function – this will make it easier to test your code. But in the end, you will want the computer to select this secret word at random before inviting you or some other user to play the game by running this function.
+Now that you have built some useful functions, you can turn to implementing the function ​hangman​, which takes one parameter, the ​secret_word​ the user is to guess. Initially, you can (and should!) manually set this secret word when you run this function – this will make it easier to test your code. But in the end, you will want the computer to select this secret word at random before inviting you or some other user to play the game by running this function.
 
 Calling the ​hangman ​function starts up an interactive game of Hangman between the user and the computer. In designing your code, be sure you take advantage of the three helper functions, ​is_word_guessed​, ​get_guessed_word​, and get_available_letters​, that you've defined in the previous part!
 
@@ -125,15 +125,15 @@ I am thinking of a word that is 4 letters long. -------------
 The game must be interactive and flow as follows:
 
 1. Before each guess, you should display to the user:
-a. Remind the user of how many guesses s/he has left after each guess.
-b. all the letters the user has not yet guessed
+- Remind the user of how many guesses s/he has left after each guess.
+- All the letters the user has not yet guessed.
 2. Ask the user to supply one guess at a time. (Look at the user input
 requirements below to see what types of inputs you can expect from the user)
 3. Immediately after each guess, the user should be told whether the letter is in the computer’s word.
 4. After each guess, you should also display to the user the computer’s word, with
 guessed letters displayed and unguessed letters replaced with an underscore
 and space (_ )
-5. At the end of the guess, print some dashes (­­­­­) to help separate individual
+5. At the end of the guess, print some dashes (­­­­-­) to help separate individual
 guesses from each other
 
 Example Game Implementation:
@@ -141,11 +141,13 @@ Example Game Implementation:
 
 ```
 You have 6 guesses left.
-Available letters: abcdefghijklmnopqrstuvwxyz Please guess a letter: ​a
+Available letters: abcdefghijklmnopqrstuvwxyz
+Please guess a letter: ​a
 Good guess: _ a_ _
 ------------
 You have 6 guesses left.
-Available letters: bcdefghijklmnopqrstuvwxyz Please guess a letter: ​b
+Available letters: bcdefghijklmnopqrstuvwxyz
+Please guess a letter: ​b
 Oops! That letter is not in my word: _ a_ _
 ```
 
@@ -170,7 +172,8 @@ Example Game Implementation:
 ```
 You have 3 warnings left.
 You have 6 guesses left.
-Available letters: bcdefghijklmnopqrstuvwxyz Please guess a letter: ​s
+Available letters: bcdefghijklmnopqrstuvwxyz
+Please guess a letter: ​s
 Oops! That letter is not in my word: _ a_ _
 ------------
 You have 5 guesses left.
@@ -184,12 +187,12 @@ Oops! That is not a valid letter. You have 2 warnings left: _ a_ _
 1. The user starts with 3 warnings.
 2. If the user inputs anything besides an alphabet (symbols, numbers), tell the
 user that they can only input an alphabet.
-a. If the user has one or more warning left, the user should lose one
+- If the user has one or more warning left, the user should lose one
 warning. Tell the user the number of remaining warnings.
-b. If the user has no remaining warnings, they should lose one guess.
+- If the user has no remaining warnings, they should lose one guess.
 3. If the user inputs a letter that has already been guessed, print a message telling the user the letter has already been guessed before.
-a. If the user has one or more warning left, the user should lose one warning. Tell the user the number of remaining warnings.
-b. If the user has no warnings, they should lose one guess.
+- If the user has one or more warning left, the user should lose one warning. Tell the user the number of remaining warnings.
+- If the user has no warnings, they should lose one guess.
 4. If the user inputs a letter that hasn’t been guessed before and the letter is in
 the secret word, the user loses ​no​ guesses.
 5. Consonants:​ If the user inputs a consonant that hasn’t been guessed and the
@@ -225,20 +228,26 @@ Oops! You've already guessed that letter. You now have 2 warnings: ta_ t
 4. The total score is the number of ​guesses_remaining​ once the user has
 guessed the ​secret_word​ times the number of unique letters in ​secret_word​.
 
-Total score = guesses_remaining* number unique letters in secret_word
+Total score = guesses_remaining * number unique letters in secret_word
 
 Example Implementation:
 
 ```
 You have 3 guesses left.
-Available letters: bcdfghijklnopquvwxyz Please guess a letter: ​c
+Available letters: bcdfghijklnopquvwxyz
+Please guess a letter: ​c
 Good guess: tact
 ------------
 Congratulations, you won!
 Your total score for this game is: 9
+```
+
 Example Implementation:
+
+```
 You have 3 guesses left.
-Available letters: bcdfghijklnopquvwxyz Please guess a letter: ​n
+Available letters: bcdfghijklnopquvwxyz
+Please guess a letter: ​n
 Good guess: dolphin
 ------------
 Congratulations, you won!
@@ -249,10 +258,10 @@ Your total score for this game is: 21
 
 1. Consider writing additional helper functions if you need them.
 2. There are four important pieces of information you may wish to store:
-a. secret_word​: The word to guess. This is already used as the parameter name for the ​hangman​ function.
-b. letters_guessed​: The letters that have been guessed so far. If they guess a letter that is already in ​letters_guessed​, you should print a message telling them they've already guessed that but do not penalize them for it.
-c. guesses_remaining​: The number of guesses the user has left. Note that in our example game, the penalty for choosing an incorrect vowel is different than the penalty for choosing an incorrect consonant.
-d. warnings_remaining​: The number of warnings the user has left. Note that a user only loses a warning for inputting either a symbol or a letter that has already been guessed.
+- secret_word​: The word to guess. This is already used as the parameter name for the ​hangman​ function.
+- letters_guessed​: The letters that have been guessed so far. If they guess a letter that is already in ​letters_guessed​, you should print a message telling them they've already guessed that but do not penalize them for it.
+- guesses_remaining​: The number of guesses the user has left. Note that in our example game, the penalty for choosing an incorrect vowel is different than the penalty for choosing an incorrect consonant.
+- warnings_remaining​: The number of warnings the user has left. Note that a user only loses a warning for inputting either a symbol or a letter that has already been guessed.
 
 #### G. Example Game:
 
@@ -289,7 +298,8 @@ Please guess a letter: _ a_ _
 You have 5 guesses left.
 Available letters: bcdefghijklmnopqrtuvwxyz
 Please guess a letter: ​$
-Oops! That is not a valid letter. You have 1 warnings left: _ a_ _ ------------
+Oops! That is not a valid letter. You have 1 warnings left: _ a_ _ 
+------------
 You have 5 guesses left.
 Available letters: bcdefghijklmnopqrtuvwxyz
 Please guess a letter: ​t
