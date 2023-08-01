@@ -104,6 +104,7 @@ def get_available_letters(letters_guessed):
     return available_letters
 
 
+
 def is_letter_correct(secret_word, letter_guessed):
     '''
     secret_word: string, the word the user is guessing
@@ -112,6 +113,7 @@ def is_letter_correct(secret_word, letter_guessed):
       False otherwise
     '''
     return letter_guessed in secret_word
+
 
 
 def is_guess_valid(letter, letters_guessed):
@@ -129,6 +131,7 @@ def is_guess_valid(letter, letters_guessed):
     else:
         return (False, 'not alpha')
     
+
     
 def calculate_points(secret_word, guesses_remaining):
     '''
@@ -141,6 +144,7 @@ def calculate_points(secret_word, guesses_remaining):
     return guesses_remaining * number_unique_letters
 
 
+
 def print_initial_message(secret_word):
     '''
     secret_word: string, the word the user is guessing
@@ -150,6 +154,7 @@ def print_initial_message(secret_word):
     print('Welcome to the Hangman game!')
     print(f'I am thinking of a word that is {secret_word_length} letters long.')
     print('-------------')
+
 
 
 def finalize_game(state, secret_word):
@@ -165,10 +170,12 @@ def finalize_game(state, secret_word):
         print(f'  The word was: {secret_word}')
 
 
-def handle_invalid_letter(state, error_type):
+
+def handle_invalid_letter(state, error_type, secret_word):
     '''
     state: the state of the game
     error_type: string, the error type; 'not alpha' or 'already guessed'
+    secret_word: string, the word the user is guessing
     '''
     if error_type == 'not alpha':
         if state['number_of_warnings'] != 0:
@@ -190,6 +197,7 @@ def handle_invalid_letter(state, error_type):
             state["number_of_guesses"] -= 1
 
 
+
 def print_turn_message(state):
     '''
     state: the state of the game
@@ -200,10 +208,12 @@ def print_turn_message(state):
     print(f'  Available letters: {available_letters}')
 
 
-def handle_finish_turn_message(state, guessed_letter):
+
+def handle_finish_turn_message(state, guessed_letter, secret_word):
     '''
     state: the state of the game
     guessed_letter: string, the letter guessed by the player 
+    secret_word: string, the word the user is guessing
     '''
     is_guessed_letter_correct = is_letter_correct(secret_word, guessed_letter)
 
@@ -219,13 +229,15 @@ def handle_finish_turn_message(state, guessed_letter):
     print('  ------------')
 
 
-def check_if_player_won(state):
+
+def check_if_player_won(state, secret_word):
     '''
     state: the state of the game
     '''
     if is_word_guessed(secret_word, state['letters_guessed']):
         state['player_has_won'] = True
         
+
 
 def hangman(secret_word):
     '''
@@ -269,14 +281,14 @@ def hangman(secret_word):
       guessed_letter = input('  Please guess a letter: ').lower()
       (is_valid, error_type) = is_guess_valid(guessed_letter, state['letters_guessed'])
       if not is_valid:
-          handle_invalid_letter(state, error_type)
+          handle_invalid_letter(state, error_type, secret_word)
           continue
 
       state['letters_guessed'].append(guessed_letter)
 
-      handle_finish_turn_message(state, guessed_letter)
+      handle_finish_turn_message(state, guessed_letter, secret_word)
 
-      check_if_player_won(state)
+      check_if_player_won(state, secret_word)
 
     finalize_game(state, secret_word)
 
@@ -299,23 +311,78 @@ def match_with_gaps(my_word, other_word):
         _ , and my_word and other_word are of the same length;
         False otherwise: 
     '''
-    # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    
+    my_word = my_word.replace(' ', '')
+
+    if len(my_word) != len(other_word):
+        return False
+
+    index = 0
+    for letter in my_word:
+        
+        index += 1
+        if letter == '_':
+            if other_word[index-1] in my_word:
+                return False
+            continue
+        if letter != other_word[index-1]:
+            return False
+        
+    return True
 
 
 
 def show_possible_matches(my_word):
     '''
     my_word: string with _ characters, current guess of secret word
-    returns: nothing, but should print out every word in wordlist that matches my_word
+    returns: string, returns every word in wordlist that matches my_word, separated by ' '
              Keep in mind that in hangman when a letter is guessed, all the positions
              at which that letter occurs in the secret word are revealed.
              Therefore, the hidden letter(_ ) cannot be one of the letters in the word
              that has already been revealed.
-
     '''
-    # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+
+    matched_words = ''
+
+    for word in wordlist:
+        if match_with_gaps(my_word, word):
+            matched_words += word + ' '
+
+    if matched_words == '':
+        print('No matches found')
+        return
+
+    return matched_words
+
+
+
+def is_guess_valid_with_hints(letter, letters_guessed):
+    '''
+    letter: string, the letter the user guessed
+    letters_guessed: list (of letters), which letters have been guessed so far.
+    returns: (boolean, string), True if the letter guessed is valid;
+      False otherwise; string with error type
+    '''
+    if letter in letters_guessed:
+        return (False, 'already guessed')
+    
+    if letter.isalpha() or letter == '*':
+        return (True, '')
+    else:
+        return (False, 'not alpha')
+    
+
+
+def handle_hint(secret_word, state):
+    '''
+    state: the state of the game
+    guessed_letter: string, the letter guessed by the player 
+    secret_word: string, the word the user is guessing
+    '''
+
+    my_word = get_guessed_word(secret_word, state['letters_guessed'])
+    print(f'  Possible matches are: {show_possible_matches(my_word)}')
+    print('  ------------')
 
 
 
@@ -347,7 +414,36 @@ def hangman_with_hints(secret_word):
     Follows the other limitations detailed in the problem write-up.
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    state = {
+        'number_of_guesses': 6, 
+        'number_of_warnings': 3, 
+        'letters_guessed': [], 
+        'player_has_won': False
+    }
+
+    print_initial_message(secret_word)
+
+    while not state['player_has_won'] and state['number_of_guesses'] != 0:
+      
+        print_turn_message(state)
+
+        guessed_letter = input('  Please guess a letter: ').lower()
+        (is_valid, error_type) = is_guess_valid_with_hints(guessed_letter, state['letters_guessed'])
+        if not is_valid:
+            handle_invalid_letter(state, error_type, secret_word)
+            continue
+
+        if guessed_letter == '*':
+            handle_hint(secret_word, state)
+            continue
+        
+        state['letters_guessed'].append(guessed_letter)
+
+        handle_finish_turn_message(state, guessed_letter, secret_word)
+
+        check_if_player_won(state, secret_word)
+
+    finalize_game(state, secret_word)
 
 
 
@@ -362,13 +458,14 @@ if __name__ == "__main__":
 
     # To test part 2, comment out the pass line above and
     # uncomment the following two lines.
-    secret_word = choose_word(wordlist)
-    hangman(secret_word)
+    # secret_word = choose_word(wordlist)
+    # hangman(secret_word)
+
 
 ###############
     
     # To test part 3 re-comment out the above lines and 
     # uncomment the following two lines. 
     
-    #secret_word = choose_word(wordlist)
-    #hangman_with_hints(secret_word)
+    secret_word = choose_word(wordlist)
+    hangman_with_hints(secret_word)
