@@ -413,7 +413,7 @@ def hangman_with_hints(secret_word):
     
     Follows the other limitations detailed in the problem write-up.
     '''
-    # FILL IN YOUR CODE HERE AND DELETE "pass"
+
     state = {
         'number_of_guesses': 6, 
         'number_of_warnings': 3, 
