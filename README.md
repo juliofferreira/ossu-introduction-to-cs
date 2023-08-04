@@ -13,3 +13,27 @@ python3 -m pip install -r requirements.txt
 
 Topics covered by the course:
 
+- Branching
+- Iteration
+- String Manipulation
+- Algorithms
+  - Guess and Check
+  - Approximation
+  - Bisection
+- Decomposition
+- Abstraction
+- Functions
+- Tuples
+- Lists
+- Aliasing
+- Mutability
+- Cloning
+- Recursion
+- Dictionaries
+- Testing
+- Debugging
+- Exceptions
+- Assertions
+- Object Oriented Programming
+  - Classes
+  - Inheritance
