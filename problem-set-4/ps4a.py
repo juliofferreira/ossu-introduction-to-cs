@@ -1,7 +1,4 @@
 # Problem Set 4A
-# Name: <your name here>
-# Collaborators:
-# Time Spent: x:xx
 
 def get_permutations(sequence):
     '''
@@ -23,18 +20,41 @@ def get_permutations(sequence):
     a different order than what is listed here.
     '''
 
-    pass #delete this line and replace with your code here
+    if len(sequence) <= 1:
+        return [sequence]
+
+    first_letter = sequence[0]
+    permutations_remaining_letters = get_permutations(sequence[1:])
+    list_permutations = []
+    for permutation in permutations_remaining_letters:
+        for index in range(len(permutation) + 1):
+            list_permutations.append(permutation[:index] + first_letter + permutation[index:])
+            
+    return list_permutations
+
+            
+
 
 if __name__ == '__main__':
-#    #EXAMPLE
-#    example_input = 'abc'
-#    print('Input:', example_input)
-#    print('Expected Output:', ['abc', 'acb', 'bac', 'bca', 'cab', 'cba'])
-#    print('Actual Output:', get_permutations(example_input))
-    
-#    # Put three example test cases here (for your sanity, limit your inputs
-#    to be three characters or fewer as you will have n! permutations for a 
-#    sequence of length n)
+#    TEST CASES
+   example_input_a = 'abc'
+   print('Input:', example_input_a)
+   print('Expected Output:', ['abc', 'acb', 'bac', 'bca', 'cab', 'cba'])
+   print('Actual Output:', get_permutations(example_input_a))
+   
+   print('')
 
-    pass #delete this line and replace with your code here
+   example_input_b = 'xyz'
+   print('Input:', example_input_b)
+   print('Expected Output:', ['xyz', 'yxz', 'yzx', 'xzy', 'zxy', 'zyx'])
+   print('Actual Output:', get_permutations(example_input_b))
+
+   print('')
+
+   example_input_c = 'fg'
+   print('Input:', example_input_c)
+   print('Expected Output:', ['fg', 'gf'])
+   print('Actual Output:', get_permutations(example_input_c))
+
+
 
