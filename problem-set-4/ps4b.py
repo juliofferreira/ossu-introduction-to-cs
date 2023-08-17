@@ -1,7 +1,4 @@
 # Problem Set 4B
-# Name: <your name here>
-# Collaborators:
-# Time Spent: x:xx
 
 import string
 
@@ -16,6 +13,7 @@ def load_words(file_name):
     Depending on the size of the word list, this function may
     take a while to finish.
     '''
+    print()
     print("Loading word list from file...")
     # inFile: file
     inFile = open(file_name, 'r')
@@ -24,6 +22,7 @@ def load_words(file_name):
     for line in inFile:
         wordlist.extend([word.lower() for word in line.split(' ')])
     print("  ", len(wordlist), "words loaded.")
+    print()
     return wordlist
 
 def is_word(word_list, word):
@@ -65,12 +64,10 @@ class Message(object):
         Initializes a Message object
                 
         text (string): the message's text
-
-        a Message object has two attributes:
-            self.message_text (string, determined by input text)
-            self.valid_words (list, determined using helper function load_words)
         '''
-        pass #delete this line and replace with your code here
+        
+        self.message_text = text
+        self.valid_words = load_words(WORDLIST_FILENAME)
 
     def get_message_text(self):
         '''
@@ -78,7 +75,8 @@ class Message(object):
         
         Returns: self.message_text
         '''
-        pass #delete this line and replace with your code here
+
+        return self.message_text
 
     def get_valid_words(self):
         '''
@@ -87,7 +85,8 @@ class Message(object):
         
         Returns: a COPY of self.valid_words
         '''
-        pass #delete this line and replace with your code here
+
+        return self.valid_words.copy()
 
     def build_shift_dict(self, shift):
         '''
@@ -103,7 +102,25 @@ class Message(object):
         Returns: a dictionary mapping a letter (string) to 
                  another letter (string). 
         '''
-        pass #delete this line and replace with your code here
+        shift_dict = {}
+        lowercase_letters = string.ascii_lowercase
+        uppercase_letters = string.ascii_uppercase
+
+        for letter in lowercase_letters:
+            letter_index = lowercase_letters.index(letter)
+            shift_index = letter_index + shift
+            if shift_index > 25:
+                shift_index -= 26
+            shift_dict[letter] = lowercase_letters[shift_index]
+
+        for letter in uppercase_letters:
+            letter_index = uppercase_letters.index(letter)
+            shift_index = letter_index + shift
+            if shift_index > 25:
+                shift_index -= 26
+            shift_dict[letter] = uppercase_letters[shift_index]
+
+        return shift_dict
 
     def apply_shift(self, shift):
         '''
@@ -113,11 +130,20 @@ class Message(object):
         
         shift (integer): the shift with which to encrypt the message.
         0 <= shift < 26
-
+shift_dict
         Returns: the message text (string) in which every character is shifted
              down the alphabet by the input shift
         '''
-        pass #delete this line and replace with your code here
+        ciphertext = ''
+        shift_dict = self.build_shift_dict(shift)
+
+        for letter in self.message_text:
+            if letter in string.ascii_letters:
+                ciphertext += shift_dict[letter]
+            else:
+                ciphertext += letter
+
+        return ciphertext
 
 class PlaintextMessage(Message):
     def __init__(self, text, shift):
@@ -135,7 +161,10 @@ class PlaintextMessage(Message):
             self.message_text_encrypted (string, created using shift)
 
         '''
-        pass #delete this line and replace with your code here
+        super().__init__(text)
+        self.shift = shift
+        self.encryption_dict = self.build_shift_dict(self.shift)
+        self.message_text_encrypted = self.apply_shift(self.shift)
 
     def get_shift(self):
         '''
@@ -143,7 +172,7 @@ class PlaintextMessage(Message):
         
         Returns: self.shift
         '''
-        pass #delete this line and replace with your code here
+        return self.shift
 
     def get_encryption_dict(self):
         '''
@@ -151,7 +180,7 @@ class PlaintextMessage(Message):
         
         Returns: a COPY of self.encryption_dict
         '''
-        pass #delete this line and replace with your code here
+        return self.encryption_dict.copy()
 
     def get_message_text_encrypted(self):
         '''
@@ -159,7 +188,7 @@ class PlaintextMessage(Message):
         
         Returns: self.message_text_encrypted
         '''
-        pass #delete this line and replace with your code here
+        return self.message_text_encrypted
 
     def change_shift(self, shift):
         '''
@@ -171,8 +200,9 @@ class PlaintextMessage(Message):
 
         Returns: nothing
         '''
-        pass #delete this line and replace with your code here
-
+        self.shift = shift
+        self.encryption_dict = self.build_shift_dict(self.shift)
+        self.message_text_encrypted = self.apply_shift(self.shift)
 
 class CiphertextMessage(Message):
     def __init__(self, text):
@@ -185,7 +215,7 @@ class CiphertextMessage(Message):
             self.message_text (string, determined by input text)
             self.valid_words (list, determined using helper function load_words)
         '''
-        pass #delete this line and replace with your code here
+        super().__init__(text)
 
     def decrypt_message(self):
         '''
@@ -203,22 +233,44 @@ class CiphertextMessage(Message):
         Returns: a tuple of the best shift value used to decrypt the message
         and the decrypted message text using that shift value
         '''
-        pass #delete this line and replace with your code here
+        best_shift = 0
+        maximum_number_of_real_words = 0
+        decrypted_message = ''
+
+        for shift in range(0, 26):
+            possible_message = self.apply_shift(shift)
+            number_of_real_words = 0
+            split_possible_message = possible_message.split(' ')
+            for possible_word in split_possible_message:
+                if is_word(self.valid_words, possible_word):
+                    number_of_real_words += 1
+            if number_of_real_words > maximum_number_of_real_words:
+                maximum_number_of_real_words = number_of_real_words
+                best_shift = shift
+                decrypted_message = possible_message
+
+        return (best_shift, decrypted_message)
 
 if __name__ == '__main__':
 
-#    #Example test case (PlaintextMessage)
-#    plaintext = PlaintextMessage('hello', 2)
-#    print('Expected Output: jgnnq')
-#    print('Actual Output:', plaintext.get_message_text_encrypted())
-#
-#    #Example test case (CiphertextMessage)
-#    ciphertext = CiphertextMessage('jgnnq')
-#    print('Expected Output:', (24, 'hello'))
-#    print('Actual Output:', ciphertext.decrypt_message())
+    # TEST CASES
+   plaintext = PlaintextMessage('hello', 2)
+   print('Expected Output: jgnnq')
+   print('Actual Output:', plaintext.get_message_text_encrypted())
 
-    #TODO: WRITE YOUR TEST CASES HERE
+   plaintext2 = PlaintextMessage('test', 1)
+   print('Expected Output: uftu')
+   print('Actual Output:', plaintext2.get_message_text_encrypted())
 
-    #TODO: best shift value and unencrypted story 
-    
-    pass #delete this line and replace with your code here
+   ciphertext = CiphertextMessage('jgnnq')
+   print('Expected Output:', (24, 'hello'))
+   print('Actual Output:', ciphertext.decrypt_message())
+
+   ciphertext2 = CiphertextMessage('uftu')
+   print('Expected Output:', (25, 'test'))
+   print('Actual Output:', ciphertext2.decrypt_message())
+
+   ciphertext_story = CiphertextMessage(get_story_string())
+   decrypted_story = ciphertext_story.decrypt_message()
+   print('Best story shift: ', decrypted_story[0])
+   print('Decrypted story: ', decrypted_story[1])
