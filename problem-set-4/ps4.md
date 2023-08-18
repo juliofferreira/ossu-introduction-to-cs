@@ -144,9 +144,9 @@ A better way to hide your messages is to use a substitution cipher. In this appr
 
 ### Classes and Inheritance
 
-Similar to the Caesar cipher, we are going to use classes to explore this idea. We will have a ​S​ ubMessage ​​ class with general functions for handling Substitution Messages of this kind. We will also write a class with a more specific implementation and specification, ​E​ ncryptedSubMessage, ​​ that inherits from the SubMessage ​​class.
+Similar to the Caesar cipher, we are going to use classes to explore this idea. We will have a ​S​ubMessage ​​ class with general functions for handling Substitution Messages of this kind. We will also write a class with a more specific implementation and specification, ​E​ncryptedSubMessage, ​that inherits from the SubMessage ​​class.
 
-Your job will be to fill methods for both classes according to the specifications given in the docstrings of ​p​ s4c.py​.​ Please remember that you never want to directly access attributes outside a class - that’s why you have getter and setter methods. Again, don’t overthink this; a get method should just return a variable and a set method should just set an attribute equal to the parameter passed in. Although they are simple, we need these methods in order to make sure that we are not manipulating attributes we shouldn’t be. Directly using class attributes outside of the class itself instead of using getters and setters will result in a point deduction – and more importantly can cause you headaches as you design and implement object class hierarchies.
+Your job will be to fill methods for both classes according to the specifications given in the docstrings of ​p​s4c.py​.​ Please remember that you never want to directly access attributes outside a class - that’s why you have getter and setter methods. Again, don’t overthink this; a get method should just return a variable and a set method should just set an attribute equal to the parameter passed in. Although they are simple, we need these methods in order to make sure that we are not manipulating attributes we shouldn’t be. Directly using class attributes outside of the class itself instead of using getters and setters will result in a point deduction – and more importantly can cause you headaches as you design and implement object class hierarchies.
 
 ### Part 1: SubMessage
 

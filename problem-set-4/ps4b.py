@@ -130,7 +130,7 @@ class Message(object):
         
         shift (integer): the shift with which to encrypt the message.
         0 <= shift < 26
-shift_dict
+
         Returns: the message text (string) in which every character is shifted
              down the alphabet by the input shift
         '''
