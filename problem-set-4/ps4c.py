@@ -203,7 +203,7 @@ class EncryptedSubMessage(SubMessage):
 
 if __name__ == '__main__':
 
-    # Example test case
+    # TEST CASES
     message = SubMessage("Hello World!")
     permutation = "eaiuo"
     enc_dict = message.build_transpose_dict(permutation)
