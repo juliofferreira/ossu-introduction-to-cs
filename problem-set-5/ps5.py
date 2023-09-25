@@ -133,8 +133,6 @@ class PhraseTrigger(Trigger):
         else:
             return False
 
-print(PhraseTrigger('purple cow').is_phrase_in('purplecowpurplecowpurplecow'))
-
 # Problem 3
 # TODO: TitleTrigger
 
