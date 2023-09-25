@@ -4,7 +4,7 @@
 
 You will use object-oriented programming (classes and inheritance) to build a program to monitor news feeds over the Internet. Your program will filter the news, alerting the user when it notices a news story that matches that user's interests (for example, the user may be interested in a notification whenever a story related to the Red Sox is posted).
 
-This problem set does not require many lines of code! We recommend that the solutions you write for each problem stay under about 15-20 lines of code (the solutions for some problems will be much shorter than that). If you find yourself writing way more code than that, you should come visit us at office hours to see how you can simplify things.
+This problem set does not require many lines of code! We recommend that the solutions you write for each problem stay under about 15-20 lines of code (the solutions for some problems will be much shorter than that).
 
 Here is the official Python tutorial on classes, sections 9.1-9.7 (except for 9.5.1) will be useful for this pset.
 
@@ -66,7 +66,7 @@ Parsing (see below for a definition) all of this information from the feeds that
 - link to more content - a string
 - pubdate - a datetime
 
-We want to store this information in an object that we can then pass around in the rest of our program. Your task, in this problem, is to write a class, NewsStory , starting with a constructor that takes ( guid, title, description, link, pubdate ) as argumentsand stores them appropriately. NewsStory also needs to contain the following methods:
+We want to store this information in an object that we can then pass around in the rest of our program. Your task, in this problem, is to write a class, NewsStory, starting with a constructor that takes ( guid, title, description, link, pubdate ) as arguments and stores them appropriately. NewsStory also needs to contain the following methods:
 
 - get_guid(self)
 - get_title(self)
@@ -84,7 +84,7 @@ Parsing is the process of turning a data stream into a structured format that is
 
 ## Triggers
 
-Given a set of news stories, your program will generate alerts for a subset of those stories. Stories with alerts will be displayed to the user, and the other stories will be silently discarded. We will represent alerting rules as triggers . A trigger is a rule that is evaluated over a single news story and may fire to generate an alert. For example, a simple trigger could fire for every news story whose title contained the phrase "Microsoft Office". Another trigger may be set up to fire for all news stories where the description contained the phrase "Boston". Finally, a more specific trigger could be set up to fire only when a news story contained both the phrases "Microsoft Office" and "Boston" in the description.
+Given a set of news stories, your program will generate alerts for a subset of those stories. Stories with alerts will be displayed to the user, and the other stories will be silently discarded. We will represent alerting rules as triggers. A trigger is a rule that is evaluated over a single news story and may fire to generate an alert. For example, a simple trigger could fire for every news story whose title contained the phrase "Microsoft Office". Another trigger may be set up to fire for all news stories where the description contained the phrase "Boston". Finally, a more specific trigger could be set up to fire only when a news story contained both the phrases "Microsoft Office" and "Boston" in the description.
 
 In order to simplify our code, we will use object polymorphism. We will define a trigger interface and then implement a number of different classes that implement that trigger interface in different ways.
 
@@ -92,7 +92,7 @@ In order to simplify our code, we will use object polymorphism. We will define a
 
 Each trigger class you define should implement the following interface, either directly or transitively. It must implement the evaluate method that takes a news item ( NewsStory object)as an input and returns True if an alert should be generated for that item. We will not directly use the implementation of the Trigger class, which is why it raises an exception should anyone attempt to use it.
 
-The class below implements the Trigger interface (you will not modify this). Any subclass thatinherits from it will have an evaluate method. By default, they will use the evaluate method in Trigger, the superclass, unless they define their own evaluate function, which would then beused instead. If some subclass neglects to define its own evaluate() method, calls to it willgo to Trigger.evaluate(), which fails (albeit cleanly) with the NotImplementedError:
+The class below implements the Trigger interface (you will not modify this). Any subclass that inherits from it will have an evaluate method. By default, they will use the evaluate method in Trigger, the superclass, unless they define their own evaluate function, which would then be used instead. If some subclass neglects to define its own evaluate() method, calls to it will go to Trigger.evaluate(), which fails (albeit cleanly) with the NotImplementedError:
 
 ```python
 class Trigger(object):
@@ -102,7 +102,7 @@ class Trigger(object):
     raise NotImplementedError
 ```
 
-We will define a number of classes that inherit from Trigger. In the figure below, Trigger is a superclass, from which all other classes inherit. The arrow from PhraseTrigger to Triggermeans that PhraseTrigger inherits from Trigger - a PhraseTrigger is a Trigger. Note that other classes inherit from PhraseTrigger.
+We will define a number of classes that inherit from Trigger. In the figure below, Trigger is a superclass, from which all other classes inherit. The arrow from PhraseTrigger to Trigger means that PhraseTrigger inherits from Trigger - a PhraseTrigger is a Trigger. Note that other classes inherit from PhraseTrigger.
 
 ![Image showing Trigger inheritance tree](./trigger_inheritance.png)
 
@@ -120,7 +120,7 @@ A phrase is one or more words separated by a single space between the words. You
 But these are NOT valid phrases:
 
 - 'purple cow???' (contains punctuation)
-- 'purplecow' (contains multiple spaces between words)
+- 'purple &nbsp;&nbsp;&nbsp;&nbsp;cow' (contains multiple spaces between words)
 
 Given some text, the trigger should fire only when each word in the phrase is present in its entirety and appears consecutively in the text, separated only by spaces or punctuation. The trigger should not be case sensitive. For example, a phrase trigger with the phrase "purple cow" should fire on the following text snippets:
 
@@ -146,7 +146,7 @@ import string
 print(string.punctuation)
 ```
 
-Play around with this a bit to get comfortable with what it is. The split , replace , join, methods of strings will almost certainly be helpful as you tackle this part.
+Play around with this a bit to get comfortable with what it is. The split, replace, join, methods of strings will almost certainly be helpful as you tackle this part.
 
 You may also find the string methods lower and/or upper useful for this problem.
 
@@ -154,15 +154,15 @@ You may also find the string methods lower and/or upper useful for this problem.
 
 #### Problem 2
 
-Implement a phrase trigger abstract class, PhraseTrigger . It should take in a string phraseas an argument to the class's constructor. This trigger should not be case-sensitive (it should treat "Intel" and "intel" as being equal).
+Implement a phrase trigger abstract class, PhraseTrigger. It should take in a string phrase as an argument to the class's constructor. This trigger should not be case-sensitive (it should treat "Intel" and "intel" as being equal).
 
-PhraseTrigger should be a subclass of Trigger . It has one new method,is_phrase_in , which takes in one string argument text. It returns True if the whole phrasephrase is present in text, False otherwise, as described in the above examples. Thismethod should not be case-sensitive. Implement this method.
+PhraseTrigger should be a subclass of Trigger. It has one new method, is_phrase_in, which takes in one string argument text. It returns True if the whole phrase is present in text, False otherwise, as described in the above examples. This method should not be case-sensitive. Implement this method.
 
-Because this is an abstract class, we will not be directly instantiating any PhraseTriggers .PhraseTrigger should inherit its evaluate method from Trigger . We do this because nowwe can create subclasses of PhraseTrigger that use its is_phrase_in function.
+Because this is an abstract class, we will not be directly instantiating any PhraseTriggers. PhraseTrigger should inherit its evaluate method from Trigger. We do this because now we can create subclasses of PhraseTrigger that use its is_phrase_in function.
 
 ✦✦✦✦
 
-You are now ready to implement PhraseTrigger 's two subclasses: TitleTrigger and DescriptionTrigger .
+You are now ready to implement PhraseTrigger's two subclasses: TitleTrigger and DescriptionTrigger .
 
 ✦✦✦✦
 

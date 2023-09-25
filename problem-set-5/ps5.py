@@ -54,7 +54,28 @@ def process(url):
 
 # Problem 1
 
-# TODO: NewsStory
+class NewsStory:
+    def __init__(self, guid, title, description, link, pubdate):
+        self.guid = guid
+        self.title = title
+        self.description = description
+        self.link = link
+        self.pubdate = pubdate
+
+    def get_guid(self):
+        return self.guid
+    
+    def get_title(self):
+        return self.title
+    
+    def get_description(self):
+        return self.description
+    
+    def get_link(self):
+        return self.link
+    
+    def get_pubdate(self):
+        return self.pubdate
 
 
 #======================
@@ -73,7 +94,46 @@ class Trigger(object):
 # PHRASE TRIGGERS
 
 # Problem 2
-# TODO: PhraseTrigger
+
+class PhraseTrigger(Trigger):
+    def __init__(self, phrase):
+        self.phrase = phrase
+
+    def is_phrase_in(self, text):
+        is_space_or_punctuation = False
+        index = 0
+        for letter in text:
+            if letter == ' ' or letter in string.punctuation:
+                if is_space_or_punctuation == True:
+                    text = text[:index] + text[index + 1:]
+                    index -= 1
+                else:
+                    is_space_or_punctuation = True
+                    text = text[:index] + ' ' + text[index + 1:]
+            else:
+                is_space_or_punctuation = False
+            index += 1
+
+        lowercase_text = text.lower()
+        lowercase_phrase = self.phrase.lower()
+        
+        phrase_index = lowercase_text.find(lowercase_phrase)
+        if phrase_index != -1:
+            if phrase_index != 0:
+                character_before = lowercase_text[phrase_index - 1]
+                if character_before != ' ' and character_before not in string.punctuation:
+                    return False
+
+            if phrase_index + len(lowercase_phrase) < len(text):
+                character_after = lowercase_text[phrase_index + len(lowercase_phrase)]
+                if character_after != ' ' and character_after not in string.punctuation:
+                    return False
+            
+            return True
+        else:
+            return False
+
+print(PhraseTrigger('purple cow').is_phrase_in('purplecowpurplecowpurplecow'))
 
 # Problem 3
 # TODO: TitleTrigger
@@ -216,10 +276,10 @@ def main_thread(master):
         print(e)
 
 
-if __name__ == '__main__':
-    root = Tk()
-    root.title("Some RSS parser")
-    t = threading.Thread(target=main_thread, args=(root,))
-    t.start()
-    root.mainloop()
+# if __name__ == '__main__':
+#     root = Tk()
+#     root.title("Some RSS parser")
+#     t = threading.Thread(target=main_thread, args=(root,))
+#     t.start()
+#     root.mainloop()
 

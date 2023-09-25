@@ -37,3 +37,7 @@ Topics covered by the course:
 - Object Oriented Programming
   - Classes
   - Inheritance
+- Program Efficiency
+  - Big O Notation
+- Searching
+- Sorting
