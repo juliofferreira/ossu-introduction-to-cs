@@ -168,11 +168,11 @@ You are now ready to implement PhraseTrigger's two subclasses: TitleTrigger and 
 
 #### Problem 3
 
-Implement a phrase trigger subclass, TitleTrigger that fires when a news item's titlecontains a given phrase. For example, an instance of this type of trigger could be used to generate an alert whenever the phrase "Intel processors" occurred in the title of a news item.
+Implement a phrase trigger subclass, TitleTrigger that fires when a news item's title contains a given phrase. For example, an instance of this type of trigger could be used to generate an alert whenever the phrase "Intel processors" occurred in the title of a news item.
 
-As it was in PhaseTrigger, the phrase should be an argument to the class's constructor,and the trigger should not be case-sensitive.
+As it was in PhraseTrigger, the phrase should be an argument to the class's constructor, and the trigger should not be case-sensitive.
 
-Think carefully about what methods should be defined in TitleTrigger and whatmethods should be inherited from the superclass. Once you've implemented TitleTrigger , the TitleTrigger unit tests in our test suite should pass. Remember thatall subclasses that inherit from the Trigger interface should include a working evaluate method.
+Think carefully about what methods should be defined in TitleTrigger and what methods should be inherited from the superclass. Once you've implemented TitleTrigger, the TitleTrigger unit tests in our test suite should pass. Remember that all subclasses that inherit from the Trigger interface should include a working evaluate method.
 
 If you find that you're not passing the unit tests, keep in mind that FAIL means your code runs but produces the wrong answer, whereas ERROR means that your code crashes due to some error.
 
@@ -180,7 +180,7 @@ If you find that you're not passing the unit tests, keep in mind that FAIL means
 
 #### Problem 4
 
-Implement a phrase trigger subclass, DescriptionTrigger , that fires when a news item'sdescription contains a given phrase. As it was in PhaseTrigger , the phrase should bean argument to the class's constructor, and the trigger should not be case-sensitive.
+Implement a phrase trigger subclass, DescriptionTrigger, that fires when a news item's description contains a given phrase. As it was in PhaseTrigger, the phrase should be an argument to the class's constructor, and the trigger should not be case-sensitive.
 
 Once you've implemented DescriptionTrigger , the DescriptionTrigger unit tests in our test suite should pass.
 
