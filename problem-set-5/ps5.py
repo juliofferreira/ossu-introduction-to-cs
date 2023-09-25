@@ -100,6 +100,8 @@ class PhraseTrigger(Trigger):
         self.phrase = phrase
 
     def is_phrase_in(self, text):
+
+        # REMOVING DOUBLE SPACES AND DOUBLE PUNCTUATIONS
         is_space_or_punctuation = False
         index = 0
         for letter in text:
@@ -113,6 +115,7 @@ class PhraseTrigger(Trigger):
             else:
                 is_space_or_punctuation = False
             index += 1
+
 
         lowercase_text = text.lower()
         lowercase_phrase = self.phrase.lower()
