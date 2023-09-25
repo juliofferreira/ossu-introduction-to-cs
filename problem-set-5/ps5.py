@@ -60,7 +60,7 @@ class NewsStory:
         self.title = title
         self.description = description
         self.link = link
-        self.pubdate = pubdate
+        self.pubdate = pubdate.replace(tzinfo=pytz.timezone("EST"))
 
     def get_guid(self):
         return self.guid
@@ -157,25 +157,60 @@ class DescriptionTrigger(PhraseTrigger):
 # TIME TRIGGERS
 
 # Problem 5
-# TODO: TimeTrigger
-# Constructor:
-#        Input: Time has to be in EST and in the format of "%d %b %Y %H:%M:%S".
-#        Convert time from string to a datetime before saving it as an attribute.
+
+class TimeTrigger(Trigger):
+    def __init__(self, time):
+        """
+        time: a string representing time in EST and in the format of "%d %b %Y %H:%M:%S"
+        """
+        self.time = datetime.strptime(time, '%d %b %Y %H:%M:%S').replace(tzinfo=pytz.timezone("EST"))
 
 # Problem 6
-# TODO: BeforeTrigger and AfterTrigger
 
+class BeforeTrigger(TimeTrigger):
+    def __init__(self, time):
+        super().__init__(time)
+
+    def evaluate(self, story):
+        return story.get_pubdate() < self.time
+
+class AfterTrigger(TimeTrigger):
+    def __init__(self, time):
+        super().__init__(time)
+
+    def evaluate(self, story):
+        return story.get_pubdate() > self.time 
 
 # COMPOSITE TRIGGERS
 
 # Problem 7
-# TODO: NotTrigger
+
+class NotTrigger(Trigger):
+    def __init__(self, trigger):
+        self.trigger = trigger
+
+    def evaluate(self, story):
+        return not self.trigger.evaluate(story)
 
 # Problem 8
-# TODO: AndTrigger
+
+class AndTrigger(Trigger):
+    def __init__(self, trigger1, trigger2):
+        self.trigger1 = trigger1
+        self.trigger2 = trigger2
+    
+    def evaluate(self, story):
+        return self.trigger1.evaluate(story) and self.trigger2.evaluate(story)
 
 # Problem 9
-# TODO: OrTrigger
+
+class OrTrigger(Trigger):
+    def __init__(self, trigger1, trigger2):
+        self.trigger1 = trigger1
+        self.trigger2 = trigger2
+    
+    def evaluate(self, story):
+        return self.trigger1.evaluate(story) or self.trigger2.evaluate(story)
 
 
 #======================

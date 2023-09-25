@@ -188,11 +188,11 @@ Once you've implemented DescriptionTrigger , the DescriptionTrigger unit tests i
 
 ### Time Triggers
 
-Let’s move on from PhraseTrigger. Now we want to have triggers that is based on whenthe NewsStory was published, not on its news content. Please check the earlier diagram ifyou’re confused about the inheritance structure of the Triggers in this problem set.
+Let’s move on from PhraseTrigger. Now we want to have triggers that are based on when the NewsStory was published, not on its news content. Please check the earlier diagram if you’re confused about the inheritance structure of the Triggers in this problem set.
 
 #### Problem 5
 
-Implement a time trigger abstract class, TimeTrigger , that is a subclass of Trigger . The class's constructor should take in time in EST as a string in the format of "3 Oct 2016 17:00:10 ". Make sure to convert time from string to a datetime before saving it as an attribute. Some of datetime ’s methods, strptime and replace , along with an explanation of the string format for time, might come in handy. You can also look at the provided code in process to check. You do not have to implement any other methods.
+Implement a time trigger abstract class, TimeTrigger, that is a subclass of Trigger. The class's constructor should take in time in EST as a string in the format of "3 Oct 2016 17:00:10 ". Make sure to convert time from string to a datetime before saving it as an attribute. Some of datetime’s methods, strptime and replace, along with an explanation of the string format for time, might come in handy. You can also look at the provided code in process to check. You do not have to implement any other methods.
 
 Because this is an abstract class, we will not be directly instantiating any TimeTrigger.
 
@@ -200,17 +200,17 @@ Because this is an abstract class, we will not be directly instantiating any Tim
 
 #### Problem 6
 
-Implement BeforeTrigger and AfterTrigger , two subclasses of TimeTrigger .BeforeTrigger fires when a story is published strictly before the trigger’s time, andAfterTrigger fires when a story is published strictly after the trigger’s time. Theirevaluate should not take more than a couple of lines of code.
+Implement BeforeTrigger and AfterTrigger, two subclasses of TimeTrigger. BeforeTrigger fires when a story is published strictly before the trigger’s time, and AfterTrigger fires when a story is published strictly after the trigger’s time. Their evaluate should not take more than a couple of lines of code.
 
-Once you've implemented BeforeTrigger and AfterTrigger , theBeforeAndAfterTrigger unit tests in our test suite should pass.
+Once you've implemented BeforeTrigger and AfterTrigger, the BeforeAndAfterTrigger unit tests in our test suite should pass.
 
 ✦✦✦✦
 
 ### Composite Triggers
 
-So the triggers above are mildly interesting, but we want to do better: we want to 'compose' the earlier triggers to set up more powerful alert rules. For instance, we may want to raise an alert only when both "google glass" and "stock" were present in the news item (an idea wecan't express with just phrase triggers).
+So the triggers above are mildly interesting, but we want to do better: we want to 'compose' the earlier triggers to set up more powerful alert rules. For instance, we may want to raise an alert only when both "google glass" and "stock" were present in the news item (an idea we can't express with just phrase triggers).
 
-Note that these triggers are not phrase triggers and should not be subclasses of PhraseTrigger . Again, please refer back to the earlier diagram if you’re confused about the inheritance structure of Trigger.
+Note that these triggers are not phrase triggers and should not be subclasses of PhraseTrigger. Again, please refer back to the earlier diagram if you’re confused about the inheritance structure of Trigger.
 
 ✦✦✦✦
 
@@ -218,7 +218,7 @@ Note that these triggers are not phrase triggers and should not be subclasses of
 
 Implement a NOT trigger (NotTrigger).
 
-This trigger should produce its output by inverting the output of another trigger. The NOT trigger should take this other trigger as an argument to its constructor (why its constructor? Because we can't change what parameters evaluate takes in... that'd break our polymorphism). So, given a trigger T and a news item x , the output of the NOT trigger'sevaluate method should be equivalent to not T.evaluate(x).
+This trigger should produce its output by inverting the output of another trigger. The NOT trigger should take this other trigger as an argument to its constructor (why its constructor? Because we can't change what parameters evaluate takes in... that'd break our polymorphism). So, given a trigger T and a news item x , the output of the NOT trigger's evaluate method should be equivalent to not T.evaluate(x).
 
 When this is done, the NotTrigger unit tests should pass.
 
