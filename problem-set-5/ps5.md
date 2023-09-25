@@ -246,7 +246,7 @@ When this is done, the OrTrigger unit tests should pass.
 
 ## Filtering
 
-At this point, you can run ps5.py, and it will fetch and display Google and Yahoo news items for in a pop-up window. How many news items? All of them.
+At this point, you can run ps5.py, and it will fetch and display Google and Yahoo news items for you in a pop-up window. How many news items? All of them.
 
 Right now, the code we've given you in ps5.py gets the news from both feeds every minute and displays the result. This is nice, but, remember, the goal here was to filter out only the the stories we wanted.
 
@@ -264,10 +264,11 @@ After completing Problem 10, you can try running ps5.py, and various RSS news it
 
 Right now, your triggers are specified in your Python code, and to change them, you have to edit your program. This is very user-unfriendly. (Imagine if you had to edit the source code of your web browser every time you wanted to add a bookmark!)
 
-Instead, we want you to read your trigger configuration from a triggers.txt file every timeyour application starts and use the triggers specified there.
+Instead, we want you to read your trigger configuration from a triggers.txt file every time your application starts and use the triggers specified there.
 
 Consider the following example configuration file:
 
+```
 // description trigger named t1
 t1,DESCRIPTION,Presidential Election
 
@@ -281,14 +282,15 @@ t3,DESCRIPTION,Donald Trump
 t4,AND,t2,t3
 
 // the trigger list contains t1 and t4
-ADD,t1,t4The
+ADD,t1,t4
+```
 
 The example file specifies that four triggers should be created, and that two of those triggers should be added to the trigger list:
 
 - A trigger that fires when the description contains the phrase 'PresidentialElection' ( t1 ).
 - A trigger that fires when the title contains the description Donald Trump and the titlecontains the phrase Hillary Clinton ( t4 ).
 
-The two other triggers ( t2 and t3 ) are created but not added to the trigger list directly. They areused as arguments for the composite AND trigger's definition ( t4 ).
+The two other triggers ( t2 and t3 ) are created but not added to the trigger list directly. They are used as arguments for the composite AND trigger's definition ( t4 ).
 
 Each line in this file does one of the following:
 
@@ -303,7 +305,7 @@ Blank: blank lines are ignored. A line that consists only of whitespace is a bla
 
 Comments: Any line that begins with // is ignored.
 
-Trigger definitions: Lines that do not begin with the keyword ADD define named triggers. Elements in these lines are separated by commas . The first element in a trigger definition is either the keyword ADD or the name of the trigger. The name can be any combination of letters/numbers, but it cannot be the word "ADD". The second element of a trigger definition is a keyword (e.g., TITLE, AND, etc.) that specifies the type of trigger being defined. The remaining elements of the definition are the trigger arguments. What arguments are required depends on the trigger type:
+Trigger definitions: Lines that do not begin with the keyword ADD define named triggers. Elements in these lines are separated by commas. The first element in a trigger definition is either the keyword ADD or the name of the trigger. The name can be any combination of letters/numbers, but it cannot be the word "ADD". The second element of a trigger definition is a keyword (e.g., TITLE, AND, etc.) that specifies the type of trigger being defined. The remaining elements of the definition are the trigger arguments. What arguments are required depends on the trigger type:
 
 - TITLE : one phrase
 - DESCRIPTION : one phrase
@@ -319,7 +321,7 @@ Trigger addition: A trigger definition should create a trigger and associate it 
 
 #### Problem 11
 
-Finish implementing read_trigger_config(filename) . We've written code to open thefile and throw away all blank lines and comments. Your job is to finish the implementation. read_trigger_config should return a list of triggers specified by the configuration file.
+Finish implementing read_trigger_config(filename). We've written code to open the file and throw away all blank lines and comments. Your job is to finish the implementation. read_trigger_config should return a list of triggers specified by the configuration file.
 
 Hint: Feel free to define a helper function if you wish! Using a helper function is not required though.
 
@@ -333,16 +335,9 @@ Once that's done, modify the code within the function main_thread to use the tri
 # triggerlist = read_trigger_config('triggers.txt')
 ```
 
-After completing Problem 11, you can try running ps5.py , and depending on yourtriggers.txt file, various RSS news items should pop up. The code runs an infinite loop,checking the RSS feed for new stories every 120 seconds.
+After completing Problem 11, you can try running ps5.py, and depending on your triggers.txt file, various RSS news items should pop up. The code runs an infinite loop, checking the RSS feed for new stories every 120 seconds.
 
-Hint: If no stories are popping up, open up triggers.txt and change the triggers to onesthat reflect current events (if you don't keep up with the news, just pick some triggers that would fire on the current Google News
-stories).
-
-✦✦✦✦
-
-#### Problem 12
-
-Think about the presidential debate coming up on October 19th, and write debate_triggers.txt so that you can get news that is published within the +/- 3 hourwindow of the debate!
+Hint: If no stories are popping up, open up triggers.txt and change the triggers to ones that reflect current events (if you don't keep up with the news, just pick some triggers that would fire on the current Google News stories).
 
 ✦✦✦✦
 
